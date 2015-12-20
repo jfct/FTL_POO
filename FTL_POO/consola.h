@@ -1,3 +1,4 @@
+#pragma once
 
 /* Funcoes da consola. Dez 2010 */
 

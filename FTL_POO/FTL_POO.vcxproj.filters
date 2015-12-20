@@ -24,6 +24,12 @@
     <ClCompile Include="exemplo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="desenha.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="titulo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

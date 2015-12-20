@@ -79,8 +79,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="consola.cpp" />
+    <ClCompile Include="desenha.cpp" />
     <ClCompile Include="exemplo.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="titulo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="consola.h" />

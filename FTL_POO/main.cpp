@@ -1,5 +1,6 @@
 #include "main.h"
 
 void main(){
-	exemplo();
+	titulo();
+	//exemplo();
 }
