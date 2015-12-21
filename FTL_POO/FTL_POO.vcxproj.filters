@@ -30,12 +30,24 @@
     <ClCompile Include="titulo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="menuPrincipal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="jogo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="consola.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="menuPrincipal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="jogo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

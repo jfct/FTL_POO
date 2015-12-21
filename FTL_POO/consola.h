@@ -112,6 +112,16 @@ public:
 	//   . Se oculta e volta a mostrar a janela da consola
 	//   . Se redimensiona a janela
 	void drawCircle(int X, int Y, int R, int Pen, int Fill);
+
+	//Desenha um quadrado usando pixeis
+	// cs.drawSquare(xpos, top, tamanhoCelula, corSec, fill);
+	void drawSquare(int x, int y, int w, int Pen, int Fill);
+	
+	// Desenha um retangulo usando pixeis
+	// cs.drawRectangle(left, top, right, bottom, corPrim, 1)
+	void drawRectangle(int left, int top, int right, int bottom, int Pen, int Fill);
 };
+
+
 
 #endif

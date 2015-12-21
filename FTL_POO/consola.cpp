@@ -209,3 +209,45 @@ void Consola::drawCircle(int X, int Y, int R, int Pen, int Fill){
 	DeleteObject(SelectObject(DrawHDC, hOldBrush));
 	ReleaseDC(hwnd, DrawHDC);  // torna-se lento
 }
+
+void Consola::drawSquare(int x, int y, int w, int Pen, int Fill){
+	HDC DrawHDC;
+	DrawHDC = GetDC(hwnd);  // penstyle, width, color
+	HPEN   hNPen = CreatePen(PS_SOLID, 0, Pen);
+	HPEN   hOPen = (HPEN)SelectObject(DrawHDC, hNPen);
+	HBRUSH hOldBrush;
+	HBRUSH hNewBrush;  // true  preenche o circulo com a cor
+	if (Fill) {
+		hNewBrush = CreateSolidBrush(Pen);
+		hOldBrush = (HBRUSH)SelectObject(DrawHDC, hNewBrush);
+	}
+	else {
+		hNewBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+		hOldBrush = (HBRUSH)SelectObject(DrawHDC, hNewBrush);
+	}
+	Rectangle(DrawHDC, x, y, x + w, y + w);
+	DeleteObject(SelectObject(DrawHDC, hOPen));
+	DeleteObject(SelectObject(DrawHDC, hOldBrush));
+	ReleaseDC(hwnd, DrawHDC);  // torna-se lento
+}
+
+void Consola::drawRectangle(int left, int top, int right, int bottom, int Pen, int Fill){
+	HDC DrawHDC;
+	DrawHDC = GetDC(hwnd);  // penstyle, width, color
+	HPEN   hNPen = CreatePen(PS_SOLID, 0, Pen);
+	HPEN   hOPen = (HPEN)SelectObject(DrawHDC, hNPen);
+	HBRUSH hOldBrush;
+	HBRUSH hNewBrush;  // true  preenche o circulo com a cor
+	if (Fill) {
+		hNewBrush = CreateSolidBrush(Pen);
+		hOldBrush = (HBRUSH)SelectObject(DrawHDC, hNewBrush);
+	}
+	else {
+		hNewBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+		hOldBrush = (HBRUSH)SelectObject(DrawHDC, hNewBrush);
+	}
+	Rectangle(DrawHDC, left, top, right, bottom);
+	DeleteObject(SelectObject(DrawHDC, hOPen));
+	DeleteObject(SelectObject(DrawHDC, hOldBrush));
+	ReleaseDC(hwnd, DrawHDC);  // torna-se lento
+}
