@@ -1,5 +1,11 @@
 #include "main.h"
 
+void colocaOrdem(){
+	Consola c;
+	c.gotoxy(20, 33);
+	cout << ">";
+};
+
 void menu(){
 	Consola c;
 	int opcao;
@@ -11,8 +17,7 @@ void menu(){
 	c.gotoxy(55, 32);
 	cout << "Sair" << endl;
 
-	c.gotoxy(20, 33);
-	cout << ">";
+	colocaOrdem();
 	cin >> opcao;
 
 	switch (opcao){

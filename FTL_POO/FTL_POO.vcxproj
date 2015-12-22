@@ -81,16 +81,23 @@
     <ClCompile Include="consola.cpp" />
     <ClCompile Include="desenha.cpp" />
     <ClCompile Include="exemplo.cpp" />
+    <ClCompile Include="Interface.cpp" />
     <ClCompile Include="jogo.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="menuPrincipal.cpp" />
+    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="nave.cpp" />
+    <ClCompile Include="sala.cpp" />
     <ClCompile Include="titulo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="consola.h" />
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="jogo.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="menuPrincipal.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="nave.h" />
+    <ClInclude Include="sala.h" />
+    <ClInclude Include="titulo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\jogo">
+      <UniqueIdentifier>{3484138c-6365-4e88-bc20-5a2d533b8821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\jogo">
+      <UniqueIdentifier>{fd8b2c0d-bdf4-4435-8001-d34e3f3a8785}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Unidades">
+      <UniqueIdentifier>{1c633691-7577-4665-b840-68c97073eb6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Unidades">
+      <UniqueIdentifier>{6eeadc82-d398-43b6-971d-d2550f8bf96d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Nave">
+      <UniqueIdentifier>{297e9059-0c69-41cd-8c92-e0047b0728e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Nave">
+      <UniqueIdentifier>{d51f757b-c147-47cb-9d93-dcbeb2ebe2c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -30,11 +48,20 @@
     <ClCompile Include="titulo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="menuPrincipal.cpp">
+    <ClCompile Include="menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="nave.cpp">
+      <Filter>Source Files\jogo</Filter>
+    </ClCompile>
     <ClCompile Include="jogo.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\jogo</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface.cpp">
+      <Filter>Source Files\jogo</Filter>
+    </ClCompile>
+    <ClCompile Include="sala.cpp">
+      <Filter>Source Files\Nave</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,11 +71,23 @@
     <ClInclude Include="consola.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="menuPrincipal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="jogo.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="titulo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nave.h">
+      <Filter>Header Files\jogo</Filter>
+    </ClInclude>
+    <ClInclude Include="sala.h">
+      <Filter>Header Files\Nave</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
