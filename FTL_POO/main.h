@@ -1,8 +1,9 @@
 #pragma once
 
 #include "consola.h"
-#include "nave.h"
 #include "sala.h"
+#include "nave.h"
+
 #include "Interface.h"
 #include "menu.h"
 #include "titulo.h"

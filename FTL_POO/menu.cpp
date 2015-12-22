@@ -2,7 +2,11 @@
 
 void colocaOrdem(){
 	Consola c;
-	c.gotoxy(20, 33);
+
+	c.setBackgroundColor(c.BRANCO);
+	c.setTextColor(c.PRETO);
+
+	c.gotoxy(15, 33);
 	cout << ">";
 };
 

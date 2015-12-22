@@ -1,9 +1,9 @@
-#include "sala.h"
-
-
+#pragma once
+#include "main.h"
 
 sala::sala(){}
 sala::~sala(){}
+void sala::fazEfeito(){}
 // Função para verificar dano da sala, retorna false se não 
 // puder funcionar
 bool sala::verificaDano(){
@@ -31,7 +31,7 @@ supVida::supVida(){
 }
 supVida::~supVida(){}
 // Função para fornecer oxigénio
-void supVida::forneceOxigenio(){
+void supVida::fazEfeito(){
 	//TO-DO
 }
 
@@ -80,7 +80,7 @@ beliche::beliche(){
 beliche::~beliche(){}
 // Função que adiciona mais um membro possivel
 void beliche::fazEfeito(nave n){
-	return (n.setTripulantes(n.getTripulantes + 1));
+	// TO-DO
 }
 
 //			Raio Laser
@@ -102,6 +102,65 @@ autoReparador::autoReparador(){
 autoReparador::~autoReparador(){}
 // Função que repara salas adjacentes em 5 pontos cada
 void autoReparador::fazEfeito(nave n){
-
+	// TO-DO
 }
 
+//			Sala Segurança Interna
+segInterna::segInterna(){
+	setId(SEGURANCAINTERNA);
+	setSaude(SAUDE);
+	setIntegridade(INTEGRIDADE);
+	setOxigenio(100);
+}
+segInterna::~segInterna(){}
+void segInterna::fazEfeito(){
+	// TO-DO
+}
+
+//			Enfermaria
+enfermaria::enfermaria(){
+	setId(ENFERMARIA);
+	setSaude(SAUDE);
+	setIntegridade(INTEGRIDADE);
+	setOxigenio(100);
+}
+enfermaria::~enfermaria(){}
+void enfermaria::fazEfeito(){
+	// TO-DO
+}
+
+//			Sala de Armas
+armas::armas(){
+	setId(SALADEARMAS);
+	setSaude(SAUDE);
+	setIntegridade(INTEGRIDADE);
+	setOxigenio(100);
+}
+armas::~armas(){}
+void armas::fazEfeito(){
+	// TO-DO
+}
+
+//			Alojamento de Capitão
+alojaCapitao::alojaCapitao(){
+	setId(ALOJAMENTOCAPITAO);
+	setSaude(SAUDE);
+	setIntegridade(INTEGRIDADE);
+	setOxigenio(100);
+}
+alojaCapitao::~alojaCapitao(){}
+void alojaCapitao::fazEfeito(){
+	// TO-DO
+}
+
+//			Oficina de Robot
+oficina::oficina(){
+	setId(OFICINA);
+	setSaude(SAUDE);
+	setIntegridade(INTEGRIDADE);
+	setOxigenio(100);
+}
+oficina::~oficina(){}
+void oficina::fazEfeito(){
+	// TO-DO
+}

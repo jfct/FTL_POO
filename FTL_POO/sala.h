@@ -1,5 +1,8 @@
 #pragma once
 #include "main.h"
+#include <vector>
+
+class nave;
 
 const int PONTE = 900;
 const int SUPORTEDEVIDA = 901;
@@ -12,38 +15,37 @@ const int AUTOREPARADOR = 907;
 const int SEGURANCAINTERNA = 908;
 const int ENFERMARIA = 909;
 const int SALADEARMAS = 910;
-const int ALJOAMENTOCAPITAO = 911;
+const int ALOJAMENTOCAPITAO = 911;
 const int OFICINA = 912;
 
 // Sala Normal
 class sala{
 
-protected:
 	int id;
 	int numero;
 	int saude;
 	int integridade;
 	int oxigenio;
-	vector<int> salasAdjacentes;
-
+	std::vector<int> salasAdjacentes;
+	
 public:
 	sala();
 	~sala();
 
-	int getId(){ return id; };
-	int getNumero(){ return numero; }
-	int getSaude(){ return saude; };
-	int getIntegridade(){ return integridade; };
-	int getOxigenio(){ return oxigenio; };
+	virtual int getId(){ return id; };
+	virtual int getNumero(){ return numero; }
+	virtual int getSaude(){ return saude; };
+	virtual int getIntegridade(){ return integridade; };
+	virtual int getOxigenio(){ return oxigenio; };
 
-	void setId(int s){ id = s; };
-	void setNumero(int s){ numero = s; };
-	void setSaude(int s){ saude = s; };
-	void setIntegridade(int s){ integridade = s; };
-	void setOxigenio(int s){ oxigenio = s; };
+	virtual void setId(int s){ id = s; };
+	virtual void setNumero(int s){ numero = s; };
+	virtual void setSaude(int s){ saude = s; };
+	virtual void setIntegridade(int s){ integridade = s; };
+	virtual void setOxigenio(int s){ oxigenio = s; };
 
 	virtual void fazEfeito();
-	bool verificaDano();
+	virtual bool verificaDano();
 };
 
 // Sala ponte, necessário para movimentar a nave
@@ -97,6 +99,7 @@ public:
 
 // Sala que aumenta a capacidade da tripulação em 1
 class beliche : public sala{
+public:
 	beliche();
 	~beliche();
 
@@ -105,6 +108,7 @@ class beliche : public sala{
 
 // Sala que modifica os eventos quando este é operado
 class raioLaser : public sala{
+public:
 	raioLaser();
 	~raioLaser();
 };
@@ -113,6 +117,7 @@ class raioLaser : public sala{
 // Funciona apenas sem dano
 // Final de turno apenas
 class autoReparador : public sala{
+public:
 	autoReparador();
 	~autoReparador();
 
@@ -122,6 +127,7 @@ class autoReparador : public sala{
 // Sala que danifica inimigos em salas adjacentes e 
 // na própria, funciona se não estiver danificado
 class segInterna : public sala{
+public:
 	segInterna();
 	~segInterna();
 
@@ -132,6 +138,7 @@ class segInterna : public sala{
 // Funciona se ñ estiver danificado
 // Final  de turno apenas
 class enfermaria : public sala{
+public:
 	enfermaria();
 	~enfermaria();
 
@@ -141,6 +148,7 @@ class enfermaria : public sala{
 // Sala que dá a caracteristica Armado(1) a quem acaba
 // o turno dentro. Final de turno apenas
 class armas : public sala{
+public:
 	armas();
 	~armas();
 
@@ -150,6 +158,7 @@ class armas : public sala{
 // Sala que modifica um membro da tripulação por um capitão
 // 1 cópia apenas
 class alojaCapitao : public sala{
+public:
 	alojaCapitao();
 	~alojaCapitao();
 
@@ -158,6 +167,7 @@ class alojaCapitao : public sala{
 
 // Sala que modifica um membro da tripulação por um robot
 class oficina : public sala{
+public:
 	oficina();
 	~oficina();
 
