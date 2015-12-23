@@ -26,6 +26,7 @@ class sala{
 	int saude;
 	int integridade;
 	int oxigenio;
+	std::vector<char> tripulantes;
 	std::vector<int> salasAdjacentes;
 	
 public:

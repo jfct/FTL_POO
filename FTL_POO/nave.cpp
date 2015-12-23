@@ -8,7 +8,7 @@ nave::nave()
 
 nave::~nave(){}
 
-void nave::addSala(sala s, int tipo){
+void nave::addSala(int tipo){
 
 	switch (tipo){
 	case PONTE:
@@ -62,4 +62,15 @@ sala* nave::getSala(int numero){
 	// MENU
 	colocaOrdem();
 	cout << "Não existe numero";
+	return NULL; 
 }
+
+void nave::atribuiNumero(){
+	int i = 0;
+
+	for (it = vectorSalas.begin(); it != vectorSalas.end(); ++it){
+		(*it)->setNumero(i);
+		i++;
+	}
+}
+

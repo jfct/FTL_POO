@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include <vector> 
 
 class Interface{
 	
@@ -9,7 +10,15 @@ public:
 
 	Interface();
 	void limpaEcra();
+	void displaysalas();
+
 	void desenhaNave();
 	void desenhaInformacao();
+	void desenhaMenuOpcao(int i);
+	void desenhaSala(nave* n);
+	void desenhaSalaNumero(std::vector<int> vector);
+
+	int getTipo(int opcao);
+	std::string getNome(int id);
 };
 

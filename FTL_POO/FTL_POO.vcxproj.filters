@@ -51,9 +51,6 @@
     <ClCompile Include="menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="nave.cpp">
-      <Filter>Source Files\jogo</Filter>
-    </ClCompile>
     <ClCompile Include="jogo.cpp">
       <Filter>Source Files\jogo</Filter>
     </ClCompile>
@@ -61,6 +58,9 @@
       <Filter>Source Files\jogo</Filter>
     </ClCompile>
     <ClCompile Include="sala.cpp">
+      <Filter>Source Files\Nave</Filter>
+    </ClCompile>
+    <ClCompile Include="nave.cpp">
       <Filter>Source Files\Nave</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,23 +71,23 @@
     <ClInclude Include="consola.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="jogo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="titulo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Interface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="nave.h">
-      <Filter>Header Files\jogo</Filter>
-    </ClInclude>
     <ClInclude Include="sala.h">
       <Filter>Header Files\Nave</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface.h">
+      <Filter>Header Files\jogo</Filter>
+    </ClInclude>
+    <ClInclude Include="nave.h">
+      <Filter>Header Files\Nave</Filter>
+    </ClInclude>
+    <ClInclude Include="jogo.h">
+      <Filter>Header Files\jogo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

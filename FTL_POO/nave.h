@@ -16,12 +16,13 @@ public:
 
 	sala* getSala(int numero);
 
-	void addSala(sala s, int tipo);
+	void atribuiNumero();
+	void addSala(int tipo);
 
-	
 	int getTripulantes(){ return nTripulantes; };
 	int getEscudo(){ return escudo; };
 	
+	void setTamanho(){ vectorSalas.reserve(12); };
 	void setTripulantes(int s) { nTripulantes = s; };
 	void setEscudo(int s){ escudo = s; };
 };

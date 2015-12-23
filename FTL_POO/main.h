@@ -3,7 +3,6 @@
 #include "consola.h"
 #include "sala.h"
 #include "nave.h"
-
 #include "Interface.h"
 #include "menu.h"
 #include "titulo.h"
