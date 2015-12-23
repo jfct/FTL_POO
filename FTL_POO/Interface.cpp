@@ -25,7 +25,7 @@ void Interface::displaysalas(){
 		c.gotoxy(46, 33);
 		cout << "7)Sala de Armas";
 		c.gotoxy(46, 34);
-		cout << "8)Alojamento de Capitão";
+		cout << "8)Alojamento de Capitao";
 		c.gotoxy(46, 35);
 		cout << "9)Oficina de Robot";
 }
@@ -171,7 +171,6 @@ void Interface::desenhaSalaNumero(vector<int> vectopcao){
 	}
 }
 
-
 void Interface::desenhaSala(nave* n){
 	sala* s;
 
@@ -201,9 +200,9 @@ void Interface::desenhaSala(nave* n){
 				else{
 					c.gotoxy(18 + 17 * (i - 8), 17);
 					cout << getNome(s->getId());
-					c.gotoxy(18 + 17 * (i - 8), 18);
-					cout << "Saude" << s->getIntegridade();
 					c.gotoxy(18 + 17 * (i - 8), 19);
+					cout << "Saude" << s->getIntegridade();
+					c.gotoxy(18 + 17 * (i - 8), 20);
 					cout << "Oxigenio:" << s->getOxigenio();
 				}
 		}
