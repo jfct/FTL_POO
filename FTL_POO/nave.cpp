@@ -74,3 +74,34 @@ void nave::atribuiNumero(){
 	}
 }
 
+void nave::addTripulante(int tipo){
+	
+	// TO-DO adicionar tipos de unidade
+
+	switch (tipo){
+	case MEMBRO:
+		vectorUnidades.push_back(new membro());
+		break;
+	case CAPITAO:
+		vectorUnidades.push_back(new membro());
+		break;
+	case ROBOT:
+		vectorUnidades.push_back(new membro());
+		break;
+	case GEIGERMORFO:
+		vectorUnidades.push_back(new geigermorfo());
+		break;
+	case CASULO:
+		vectorUnidades.push_back(new casulo());
+		break;
+	case BLOBE:
+		vectorUnidades.push_back(new blob());
+		break;
+	case MXYZYPYKWI:
+		vectorUnidades.push_back(new mxyzypykwi());
+		break;
+	default:
+		cout << "Não há essa classe";
+		break;
+	}
+}

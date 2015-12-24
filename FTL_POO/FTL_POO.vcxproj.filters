@@ -63,6 +63,9 @@
     <ClCompile Include="nave.cpp">
       <Filter>Source Files\Nave</Filter>
     </ClCompile>
+    <ClCompile Include="Unidades.cpp">
+      <Filter>Source Files\Unidades</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="jogo.h">
       <Filter>Header Files\jogo</Filter>
+    </ClInclude>
+    <ClInclude Include="Unidades.h">
+      <Filter>Header Files\Unidades</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
