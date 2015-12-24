@@ -6,6 +6,7 @@
 #include <vector>
 #include <cstdlib>
 #include <sstream>
+#include <algorithm>
 
 #include "consola.h"
 #include "Unidades.h"
@@ -19,8 +20,6 @@
 // TO-DO  parse int, parse string etc..
 
 using namespace std;
-
-
 
 static int tamanhocelula = 98;
 

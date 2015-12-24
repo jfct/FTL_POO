@@ -21,9 +21,12 @@ public:
 	sala* getSala(int numero);
 	unidade* getUnidade(int numero);
 
+	std::vector<unidade*> getVU(){ return vectorUnidades; };
+
 	void atribuiNumero();
 	void addSala(int tipo);
 	void addUnidade(int tipo, int sala);
+	void addNTripulantes(int i){ nTripulantes = i; };
 
 	int getNumeroTripulantes(){ return nTripulantes; };
 	int getEscudo(){ return escudo; };

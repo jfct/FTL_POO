@@ -209,6 +209,51 @@ void Interface::desenhaSala(nave* n){
 	}
 }
 
+void Interface::desenhaTripulacao(nave* n){
+	vector<unidade*> v;
+	vector<unidade*>::const_iterator itu;
+
+	v = n->getVU();
+
+	for (itu = v.begin(); itu != v.end(); ++itu){
+		if ((*itu) == NULL)
+			cout << "Erro";
+		else{
+			if ((*itu)->getSala() < 4){
+				c.gotoxy(18 + 17 * ((*itu)->getSala()), 5);
+				if ((*itu)->getSaude() > ((*itu)->getSaude() / 2))
+					c.setBackgroundColor(c.VERDE);
+				else
+					c.setBackgroundColor(c.VERMELHO);
+				cout << (*itu)->getNomeUnidade();
+				//c.gotoxy(18 + 17 * ((*itu)->getSala()), 7);
+				//cout << "HP: " <<(*itu)->getSaude();
+			}
+			else
+				if ((*itu)->getSala() >= 4 && (*itu)->getSala() < 8){
+					c.gotoxy(18 + 17 + 17 + 17 * ((*itu)->getSala() - 5), 15);
+					if ((*itu)->getSaude() > ((*itu)->getSaude() / 2))
+						c.setBackgroundColor(c.VERDE);
+					else
+						c.setBackgroundColor(c.VERMELHO);
+					cout << (*itu)->getNomeUnidade();
+					//c.gotoxy(18 + 17 + 17 + 17 * ((*itu)->getSala() - 5), 15);
+					//cout << "HP: " << (*itu)->getSaude();
+				}
+				else{
+					c.gotoxy(18 + 17 * ((*itu)->getSala() - 8), 23);
+					if ((*itu)->getSaude() > ((*itu)->getSaude() / 2))
+						c.setBackgroundColor(c.VERDE);
+					else
+						c.setBackgroundColor(c.VERMELHO);
+					cout << (*itu)->getNomeUnidade();
+					//c.gotoxy(18 + 17 * ((*itu)->getSala() - 8), 25);
+					//cout << "HP: " << (*itu)->getSaude();
+				}
+		}
+	}
+}
+
 string Interface::getNome(int id){
 	switch(id){
 	case PONTE:

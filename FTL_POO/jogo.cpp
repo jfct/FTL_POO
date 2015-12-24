@@ -2,6 +2,42 @@
 #include "main.h"
 
 
+int numeroAleatorio(int min, int max)
+{
+	return min + rand() % (max - min + 1);
+}
+
+string convertToUpper(string data)
+{
+	transform(data.begin(), data.end(), data.begin(), ::toupper);
+	return data;
+}
+
+vector<string> separaPalavras(string frase)
+{
+	string buf;
+	stringstream ss(frase);
+	vector<string> palavras;
+	while (ss >> buf)
+	{
+		buf = convertToUpper(buf);
+		palavras.push_back(buf);
+	}
+	return palavras;
+}
+
+bool isNumber(string buffer)
+{
+	for (string::reverse_iterator i = buffer.rbegin(); i != buffer.rend(); ++i)
+	{
+		if (!isdigit(*i))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 void addSalaTipo(nave* n, int opcao){
 	switch (opcao){
 	case 1:
@@ -108,10 +144,9 @@ void inicializarTripulacao(nave* n, Consola c){
 		} while (nSala > 11 && nSala < 0);
 
 		n->addUnidade(MEMBRO, nSala);
+		n->addNTripulantes(n->getNumeroTripulantes()+1);
 	}
-	system("PAUSE");
 }
-
 
 void inicioJogo(){
 	Interface in;
@@ -129,16 +164,39 @@ void inicioJogo(){
 	// Passa ao desenho da sala
 	in.desenhaSala(n);
 	inicializarTripulacao(n, c);
+
+	c.setBackgroundColor(c.CINZENTO);
+	in.desenhaTripulacao(n);
+}
+
+void ordens(){
+	string ordem;
+	vector<string> p;
+
+	cin.ignore();
+	getline(cin, ordem);
+
+	cout << ordem;
+	p = separaPalavras(ordem);
+	system("PAUSE");
 }
 
 void jogo(){
 	Interface in;
 	string ordem;
+	game* g = new game();
 	Consola c;
+	
+	// Inicializa os Ticks a 0
+	g->setTick(0);
 
+	// Limpa e começa o jogo
 	in.limpaEcra();
 	inicioJogo();
 
+	// Coloca o texto ao natural
+	c.setBackgroundColor(c.CINZENTO);
+	c.setTextColor(c.PRETO);
 	colocaOrdem();
-	cin >> ordem;
+	ordens();
 }

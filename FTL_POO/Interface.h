@@ -15,6 +15,7 @@ public:
 	void desenhaNave();
 	void desenhaInformacao();
 	void desenhaMenuOpcao(int i);
+	void desenhaTripulacao(nave* n);
 	void desenhaSala(nave* n);
 	void desenhaSalaNumero(std::vector<int> vector);
 
