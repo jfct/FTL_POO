@@ -1,6 +1,8 @@
 #pragma once
 #include "main.h"
 
+
+
 nave::nave()
 {
 	setEscudo(100);
@@ -65,6 +67,18 @@ sala* nave::getSala(int numero){
 	return NULL; 
 }
 
+unidade* nave::getUnidade(int numero){
+	for (itu = vectorUnidades.begin(); itu != vectorUnidades.end(); ++it){
+		if ((*itu)->getId() == numero)
+			return (*itu);
+	}
+
+	// MENU
+	colocaOrdem();
+	cout << "Não existe numero";
+	return NULL;
+}
+
 void nave::atribuiNumero(){
 	int i = 0;
 
@@ -74,19 +88,17 @@ void nave::atribuiNumero(){
 	}
 }
 
-void nave::addTripulante(int tipo){
+void nave::addUnidade(int tipo, int sala){
 	
-	// TO-DO adicionar tipos de unidade
-
 	switch (tipo){
 	case MEMBRO:
-		vectorUnidades.push_back(new membro());
+		vectorUnidades.push_back(new membro(sala));
 		break;
 	case CAPITAO:
-		vectorUnidades.push_back(new membro());
+		vectorUnidades.push_back(new capitao(sala));
 		break;
 	case ROBOT:
-		vectorUnidades.push_back(new membro());
+		vectorUnidades.push_back(new robot(sala));
 		break;
 	case GEIGERMORFO:
 		vectorUnidades.push_back(new geigermorfo());
@@ -105,3 +117,4 @@ void nave::addTripulante(int tipo){
 		break;
 	}
 }
+

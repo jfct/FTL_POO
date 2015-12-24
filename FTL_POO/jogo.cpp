@@ -37,13 +37,12 @@ void addSalaTipo(nave* n, int opcao){
 	}
 }
 
-void inicializarNave(nave* n){
-	Consola c;
+void inicializarNave(nave* n, Consola c){
+	//Consola c;
 	Interface in;
 	vector<int>vectopcao;
 	int opcao, flag = 0;
 
-	
 
 	n->setEscudo(100);
 	n->setTripulantes(3);
@@ -97,6 +96,21 @@ void inicializarNave(nave* n){
 	n->atribuiNumero();
 }
 
+void inicializarTripulacao(nave* n, Consola c){
+	int nSala;
+
+	for (int i = 0; i < 3; i++){
+		c.gotoxy(15, 30);
+		cout << "Em que sala pretende inserir o Membro?";
+		colocaOrdem();
+		do{
+			cin >> nSala;
+		} while (nSala > 11 && nSala < 0);
+
+		n->addUnidade(MEMBRO, nSala);
+	}
+	system("PAUSE");
+}
 
 
 void inicioJogo(){
@@ -104,7 +118,7 @@ void inicioJogo(){
 	Consola c;
 	nave* n = new nave();
 
-	inicializarNave(n);
+	inicializarNave(n,c);
 	// Diminui de volta o textsize para o normal
 	c.setTextSize(13, 13);
 	// Começa os desenhos de interface
@@ -114,6 +128,7 @@ void inicioJogo(){
 	c.setTextColor(c.PRETO);
 	// Passa ao desenho da sala
 	in.desenhaSala(n);
+	inicializarTripulacao(n, c);
 }
 
 void jogo(){

@@ -19,14 +19,17 @@ public:
 	~nave();
 
 	sala* getSala(int numero);
+	unidade* getUnidade(int numero);
 
 	void atribuiNumero();
 	void addSala(int tipo);
-	void addTripulante(int tipo);
+	void addUnidade(int tipo, int sala);
 
 	int getNumeroTripulantes(){ return nTripulantes; };
 	int getEscudo(){ return escudo; };
-	
+	int getTamanhoVU(){ return vectorUnidades.size(); };
+
+
 	void setTamanho(){ vectorSalas.reserve(12); };
 	void setTripulantes(int s) { nTripulantes = s; };
 	void setEscudo(int s){ escudo = s; };

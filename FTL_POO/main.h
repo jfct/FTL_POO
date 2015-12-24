@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <cstdlib>
+#include <sstream>
 
 #include "consola.h"
 #include "Unidades.h"
@@ -15,9 +16,11 @@
 #include "titulo.h"
 #include "jogo.h"
 
-
+// TO-DO  parse int, parse string etc..
 
 using namespace std;
+
+
 
 static int tamanhocelula = 98;
 

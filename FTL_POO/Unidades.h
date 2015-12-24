@@ -1,6 +1,7 @@
 #pragma once
 #include "main.h"
 #include <vector>
+#include <string>
 
 // Unidade normal
 
@@ -13,11 +14,14 @@ const int CASULO = 805;
 const int BLOBE = 806;
 const int MXYZYPYKWI = 807;
 
+
 class unidade{
 
-	int id;
+	std::string nome;
+
 	int saude;
 	int sala;
+	int tipo;
 	// TO-DO
 	// Caracteristicas
 
@@ -25,21 +29,42 @@ public:
 	unidade();
 	~unidade();
 
+	static int id;
+
 	int getId(){ return id; };
 	int getSaude(){ return saude; };
 	int getSala(){ return sala; };
-
+	int getTipo(){ return tipo; };
+	
+	void setTipo(int s){ tipo = s; }
 	void setId(int s){ id = s; };
 	void setSaude(int s){ saude = s; };
 	void setSala(int s){ sala = s; };
+
+	std::string getNomeUnidade(){ return nome; };
+	void setNomeUnidade(std::string n){ nome = n; };
 };
 
 class membro : public unidade{
+
 public:
-	membro();
+	membro(int i);
 	~membro();
 };
 
+class capitao : public unidade{
+
+public:
+	capitao(int i);
+	~capitao();
+};
+
+class robot : public unidade{
+
+public:
+	robot(int i);
+	~robot();
+};
 // Xenomorfos
 
 class geigermorfo : public unidade{
