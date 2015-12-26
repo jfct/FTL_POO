@@ -2,10 +2,7 @@
 #include "main.h"
 
 
-int numeroAleatorio(int min, int max)
-{
-	return min + rand() % (max - min + 1);
-}
+
 
 string convertToUpper(string data)
 {
@@ -241,6 +238,13 @@ void jogo(){
 		ordens(n);
 		g->setTick(g->getTick() + 1);
 
+		if ((g->getTick()) == 2)
+		{
+			PoCosmico(n, c);
+			c.setBackgroundColor(c.BRANCO);
+			c.clrscr();
+		}
+
 		c.setTextSize(13, 13);
 		// Começa os desenhos de interface
 		in.desenhaNave();
@@ -251,6 +255,8 @@ void jogo(){
 		in.desenhaSala(n);
 		c.setBackgroundColor(c.CINZENTO);
 		in.desenhaTripulacao(n);
+
+
 	}
 
 }

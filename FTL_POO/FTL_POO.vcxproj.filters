@@ -66,6 +66,9 @@
     <ClCompile Include="Unidades.cpp">
       <Filter>Source Files\Unidades</Filter>
     </ClCompile>
+    <ClCompile Include="Eventos.cpp">
+      <Filter>Source Files\jogo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="Unidades.h">
       <Filter>Header Files\Unidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Eventos.h">
+      <Filter>Header Files\jogo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

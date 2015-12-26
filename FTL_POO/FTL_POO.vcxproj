@@ -80,6 +80,7 @@
   <ItemGroup>
     <ClCompile Include="consola.cpp" />
     <ClCompile Include="desenha.cpp" />
+    <ClCompile Include="Eventos.cpp" />
     <ClCompile Include="exemplo.cpp" />
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="jogo.cpp" />
@@ -92,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="consola.h" />
+    <ClInclude Include="Eventos.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="jogo.h" />
     <ClInclude Include="main.h" />

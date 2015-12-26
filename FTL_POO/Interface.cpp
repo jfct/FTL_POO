@@ -184,7 +184,19 @@ void Interface::desenhaSala(nave* n){
 				c.gotoxy(18 + 17 * (i), 1);
 				cout << getNome(s->getId());
 				c.gotoxy(18 + 17 * (i), 3);
-				cout << "Saude" << s->getIntegridade();
+				if (s->getSaude() < 30){
+					c.setBackgroundColor(c.VERMELHO);
+					cout << "Saude: " << s->getSaude();
+					c.setBackgroundColor(c.CINZENTO);
+				}
+				else
+					if (s->getSaude() < 100 && s->getSaude() > 30){
+						c.setBackgroundColor(c.AMARELO);
+						cout << "Saude: " << s->getSaude();
+						c.setBackgroundColor(c.CINZENTO);
+					}else
+						cout << "Saude: " << s->getSaude();
+				
 				c.gotoxy(18 + 17 * (i), 4);
 				cout << "Oxigenio:" << s->getOxigenio();
 			}
@@ -193,7 +205,19 @@ void Interface::desenhaSala(nave* n){
 					c.gotoxy(18 + 17 + 17 + 17 * (i - 5), 9);
 					cout << getNome(s->getId());
 					c.gotoxy(18 + 17 + 17 + 17 * (i - 5), 11);
-					cout << "Saude" << s->getIntegridade();
+					if (s->getSaude() < 30){
+						c.setBackgroundColor(c.VERMELHO);
+						cout << "Saude: " << s->getSaude();
+						c.setBackgroundColor(c.CINZENTO);
+					}
+					else
+						if (s->getSaude() < 100 && s->getSaude() > 30){
+							c.setBackgroundColor(c.AMARELO);
+							cout << "Saude: " << s->getSaude();
+							c.setBackgroundColor(c.CINZENTO);
+						}
+						else
+							cout << "Saude: " << s->getSaude();
 					c.gotoxy(18 + 17 + 17 + 17 * (i - 5), 12);
 					cout << "Oxigenio:" << s->getOxigenio();
 				}
@@ -201,7 +225,19 @@ void Interface::desenhaSala(nave* n){
 					c.gotoxy(18 + 17 * (i - 8), 17);
 					cout << getNome(s->getId());
 					c.gotoxy(18 + 17 * (i - 8), 19);
-					cout << "Saude" << s->getIntegridade();
+					if (s->getSaude() < 30){
+						c.setBackgroundColor(c.VERMELHO);
+						cout << "Saude: " << s->getSaude();
+						c.setBackgroundColor(c.CINZENTO);
+					}
+					else
+						if (s->getSaude() < 100 && s->getSaude() > 30){
+							c.setBackgroundColor(c.AMARELO);
+							cout << "Saude: " << s->getSaude();
+							c.setBackgroundColor(c.CINZENTO);
+						}
+						else
+							cout << "Saude: " << s->getSaude();
 					c.gotoxy(18 + 17 * (i - 8), 20);
 					cout << "Oxigenio:" << s->getOxigenio();
 				}
