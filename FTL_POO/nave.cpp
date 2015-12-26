@@ -6,6 +6,7 @@
 nave::nave()
 {
 	setEscudo(100);
+	setTripulantes(0);
 }
 
 nave::~nave(){}

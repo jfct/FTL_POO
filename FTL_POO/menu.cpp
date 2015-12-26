@@ -3,10 +3,10 @@
 void colocaOrdem(){
 	Consola c;
 
-	c.setBackgroundColor(c.BRANCO);
-	c.setTextColor(c.PRETO);
-	c.gotoxy(15, 30);
-	cout << "Digite ordem";
+	//c.setBackgroundColor(c.BRANCO);
+	//c.setTextColor(c.PRETO);
+	//c.gotoxy(15, 30);
+	//cout << "Digite ordem";
 	c.gotoxy(15, 33);
 	cout << ">";
 };

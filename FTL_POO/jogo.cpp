@@ -81,9 +81,10 @@ void inicializarNave(nave* n, Consola c){
 
 
 	n->setEscudo(100);
-	n->setTripulantes(3);
 	n->addSala(PROPULSOR);
 	
+	c.setBackgroundColor(c.BRANCO);
+	c.setTextColor(c.PRETO);
 	in.displaysalas();
 
 	for (int i = 1; i < 4; i++)
@@ -134,9 +135,12 @@ void inicializarNave(nave* n, Consola c){
 
 void inicializarTripulacao(nave* n, Consola c){
 	int nSala;
+	Interface in;
 
 	for (int i = 0; i < 3; i++){
 		c.gotoxy(15, 30);
+		c.setBackgroundColor(c.BRANCO);
+		c.setTextColor(c.PRETO);
 		cout << "Em que sala pretende inserir o Membro?";
 		colocaOrdem();
 		do{
@@ -145,10 +149,16 @@ void inicializarTripulacao(nave* n, Consola c){
 
 		n->addUnidade(MEMBRO, nSala);
 		n->addNTripulantes(n->getNumeroTripulantes()+1);
+		
+		in.desenhaNave();
+		c.setBackgroundColor(c.CINZENTO);
+		c.setTextColor(c.PRETO);
+		in.desenhaSala(n);
+		in.desenhaTripulacao(n);
 	}
 }
 
-void inicioJogo(){
+nave* inicioJogo(){
 	Interface in;
 	Consola c;
 	nave* n = new nave();
@@ -167,18 +177,40 @@ void inicioJogo(){
 
 	c.setBackgroundColor(c.CINZENTO);
 	in.desenhaTripulacao(n);
+	return n;
 }
 
-void ordens(){
+void ordens(nave* n){
 	string ordem;
+	int nSala;
 	vector<string> p;
+	vector<unidade*> vu;
 
-	cin.ignore();
+	cin.clear();
+	fflush(stdin);
 	getline(cin, ordem);
 
 	cout << ordem;
 	p = separaPalavras(ordem);
-	system("PAUSE");
+
+	/*char *a = new char[ordem.size() + 1];
+	a[ordem.size()] = 0;
+	memcpy(a, ordem.c_str(), ordem.size());*/
+
+	/*nSala = (int)a[1];*/
+
+	vu = n->getVU();
+
+	for (int i = 0; i < vu.size(); i++)
+		if (p[0].compare(vu[i]->getNomeUnidade()) == 0)
+		{
+			vu[i]->setSala(atoi(p[1].c_str()));
+			return;
+		}
+		else
+		{
+			cout << "Ordem Incorreta";
+		}
 }
 
 void jogo(){
@@ -186,17 +218,39 @@ void jogo(){
 	string ordem;
 	game* g = new game();
 	Consola c;
-	
+	nave* n;
+
 	// Inicializa os Ticks a 0
 	g->setTick(0);
 
 	// Limpa e começa o jogo
 	in.limpaEcra();
-	inicioJogo();
+	n = inicioJogo();
 
-	// Coloca o texto ao natural
-	c.setBackgroundColor(c.CINZENTO);
-	c.setTextColor(c.PRETO);
-	colocaOrdem();
-	ordens();
+	while (1){
+		// Mostrar Tick atual
+		c.gotoxy(105, 8);
+		c.setBackgroundColor(c.BRANCO);
+		c.setTextColor(c.PRETO);
+		cout << "Tick: " << g->getTick();
+
+		// Coloca o texto ao natural
+		c.setBackgroundColor(c.CINZENTO);
+		c.setTextColor(c.PRETO);
+		colocaOrdem();
+		ordens(n);
+		g->setTick(g->getTick() + 1);
+
+		c.setTextSize(13, 13);
+		// Começa os desenhos de interface
+		in.desenhaNave();
+		// Confere ao texto as caracteristicas para assimilar ao fundo
+		c.setBackgroundColor(c.CINZENTO);
+		c.setTextColor(c.PRETO);
+		// Passa ao desenho da sala
+		in.desenhaSala(n);
+		c.setBackgroundColor(c.CINZENTO);
+		in.desenhaTripulacao(n);
+	}
+
 }
