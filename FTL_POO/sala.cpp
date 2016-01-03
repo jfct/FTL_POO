@@ -41,6 +41,7 @@ propulsor::propulsor(){
 	setSaude(SAUDE);
 	setIntegridade(INTEGRIDADE);
 	setOxigenio(100);
+	setpropulsao(100);
 }
 propulsor::~propulsor(){}
 

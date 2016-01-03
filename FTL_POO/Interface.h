@@ -1,6 +1,10 @@
+#ifndef Interface_H
+#define Interface_H
 #pragma once
 #include "main.h"
 #include <vector> 
+
+class game;
 
 class Interface{
 	
@@ -13,7 +17,7 @@ public:
 	void displaysalas();
 
 	void desenhaNave();
-	void desenhaInformacao();
+	void desenhaInformacao(nave* n, game* g);
 	void desenhaMenuOpcao(int i);
 	void desenhaTripulacao(nave* n);
 	void desenhaSala(nave* n);
@@ -21,5 +25,7 @@ public:
 
 	int getTipo(int opcao);
 	std::string getNome(int id);
+	std::string getNomeUnidade(int id);
 };
+#endif
 

@@ -8,26 +8,26 @@ Interface::Interface(){};
 
 void Interface::displaysalas(){
 
-		c.gotoxy(46, 25);
-		cout << "1)Beliche";
-		c.gotoxy(46, 26);
-		cout << "2)Propulsor Adicional";
-		c.gotoxy(46, 27);
-		cout << "3)Raio Laser";
+	c.gotoxy(46, 25);
+	cout << "1)Beliche";
+	c.gotoxy(46, 26);
+	cout << "2)Propulsor Adicional";
+	c.gotoxy(46, 27);
+	cout << "3)Raio Laser";
 
-		c.gotoxy(46, 29);
-		cout << "4)Auto-Reparador";
-		c.gotoxy(46, 30);
-		cout << "5)Segurança Interna";
-		c.gotoxy(46, 31);
-		cout << "6)Enfermaria";
+	c.gotoxy(46, 29);
+	cout << "4)Auto-Reparador";
+	c.gotoxy(46, 30);
+	cout << "5)Segurança Interna";
+	c.gotoxy(46, 31);
+	cout << "6)Enfermaria";
 
-		c.gotoxy(46, 33);
-		cout << "7)Sala de Armas";
-		c.gotoxy(46, 34);
-		cout << "8)Alojamento de Capitao";
-		c.gotoxy(46, 35);
-		cout << "9)Oficina de Robot";
+	c.gotoxy(46, 33);
+	cout << "7)Sala de Armas";
+	c.gotoxy(46, 34);
+	cout << "8)Alojamento de Capitao";
+	c.gotoxy(46, 35);
+	cout << "9)Oficina de Robot";
 }
 
 void Interface::limpaEcra(){
@@ -39,18 +39,18 @@ void Interface::desenhaMenuOpcao(int i){
 
 	//1 linha
 	c.drawSquare(tamanho, 13, tamanhocelula, RGB(128, 128, 128), 1);
-	
+
 	if (i == 2){
 		c.drawSquare(tamanho * 2, 13, tamanhocelula, RGB(255, 255, 102), 1);
 	}
 	else
 		c.drawSquare(tamanho * 2, 13, tamanhocelula, RGB(128, 128, 128), 1);
-	
+
 	if (i == 3)
 		c.drawSquare(tamanho * 3, 13, tamanhocelula, RGB(255, 255, 102), 1);
 	else
 		c.drawSquare(tamanho * 3, 13, tamanhocelula, RGB(128, 128, 128), 1);
-	
+
 	if (i == 4)
 		c.drawSquare(tamanho * 4, 13, tamanhocelula, RGB(255, 255, 102), 1);
 	else
@@ -85,7 +85,7 @@ void Interface::desenhaMenuOpcao(int i){
 void Interface::desenhaNave(){
 	int tamanho = tamanhocelula + 4;
 
-	c.setBackgroundColor(c.BRANCO);
+	c.setBackgroundColor(c.PRETO);
 	limpaEcra();
 
 	//1 linha
@@ -110,57 +110,68 @@ void Interface::desenhaNave(){
 	c.drawSquare(tamanho * 4, 13 + tamanho * 2, tamanhocelula, RGB(128, 128, 128), 1);
 };
 
-void Interface::desenhaInformacao(){
+void Interface::desenhaInformacao(nave* n, game* g){
 
-	c.setBackgroundColor(c.CINZENTO);
-	c.setTextColor(c.PRETO);
+	// Buscar informação do vector unidades
+	vector<unidade*> vu = n->getVU();
+	vector<unidade*>::const_iterator itu;
 
-	
-	// 1 linha
-	c.gotoxy(18, 1);
-	cout << "Propulsor" << endl;
-	c.gotoxy(18, 3);
-	cout << "Saude: 100";
+	c.setBackgroundColor(c.PRETO);
+	c.setTextColor(c.BRANCO);
 
-	c.gotoxy(18+17, 1);
-	cout << "123";
-	c.gotoxy(18+17+17, 1);
-	cout << "Propulsor";
-	c.gotoxy(18 + 17 + 17 + 17, 1);
-	cout << "Auto Reparador";
-	// 2 linha
-	c.gotoxy(18 + 17, 9);
-	cout << "Sala Maquinas";
-	c.gotoxy(18 + 17 + 17, 9);
-	cout << "Sup de Vida";
-	c.gotoxy(18 + 17 + 17 + 17, 9);
-	cout << "Ctrl Escudo";
-	c.gotoxy(18 + 17 + 17 + 17 + 17, 9);
-	cout << "Ponte";
-	// 3 linha
-	c.gotoxy(18, 17);
-	cout << "Ctrl de Escudo";
-	c.gotoxy(18 + 17, 17);
-	cout << "123";
-	c.gotoxy(18 + 17 + 17, 17);
-	cout << "Propulsor";
-	c.gotoxy(18 + 17 + 17 + 17, 17);
-	cout << "Propulsor";
+	c.gotoxy(122, 7);
+	cout << "Informacao";
+
+	c.gotoxy(120, 8);
+	cout << (char)218;
+	for (int i = 0; i < 30; i++)
+		cout << (char)196;
+	cout << (char)191 << '\n';
+
+	c.gotoxy(120, 25);
+	cout << (char)192;
+	for (int i = 0; i < 30; i++)
+		cout << (char)196;
+	cout << (char)217 << '\n';
+
+	c.gotoxy(128, 10);
+	cout << "Nave " << n->getNome(); 
+	c.gotoxy(122, 11);
+	c.setTextColor(c.AMARELO);
+	cout << "Anos de Luz Restantes: " << g->getObjectivo();
+	c.setTextColor(c.BRANCO);
+	c.gotoxy(122, 13);
+	cout << "Tripulacao:";
+
+	int linha = 14;
+
+	for (itu = vu.begin(); itu != vu.end(); ++itu){
+		c.gotoxy(124, linha);
+		cout << getNomeUnidade((*itu)->getTipo()) << "    ";
+		if ((*itu)->getSaude() < ((*itu)->getSaude() / 2))
+			c.setBackgroundColor(c.VERMELHO);
+		else
+			c.setBackgroundColor(c.VERDE);
+		cout << "Saude: " << (*itu)->getSaude() << "\n";
+
+		c.setBackgroundColor(c.PRETO);
+		linha++;
+	}
 };
 
 void Interface::desenhaSalaNumero(vector<int> vectopcao){
-	
+
 	int numero = 1;
 	int flag = 0;
 	c.setBackgroundColor(c.CINZENTO);
 
-	for (int i = 0; i < vectopcao.size() ; i++){
+	for (int i = 0; i < vectopcao.size(); i++){
 		if (numero < 4){
 			c.gotoxy(18 + 17 * (numero), 1);
 			cout << getNome(getTipo(vectopcao.at(i)));
 		}
 		else{
-			c.gotoxy(18 + 17 * (numero-7), 17);
+			c.gotoxy(18 + 17 * (numero - 7), 17);
 			cout << getNome(getTipo(vectopcao.at(i)));
 		}
 		numero++;
@@ -184,7 +195,7 @@ void Interface::desenhaSala(nave* n){
 				c.gotoxy(18 + 17 * (i), 1);
 				cout << getNome(s->getId());
 				c.gotoxy(18 + 17 * (i), 3);
-				if (s->getSaude() < 30){
+				if (s->getSaude() <= 30){
 					c.setBackgroundColor(c.VERMELHO);
 					cout << "Saude: " << s->getSaude();
 					c.setBackgroundColor(c.CINZENTO);
@@ -194,9 +205,10 @@ void Interface::desenhaSala(nave* n){
 						c.setBackgroundColor(c.AMARELO);
 						cout << "Saude: " << s->getSaude();
 						c.setBackgroundColor(c.CINZENTO);
-					}else
+					}
+					else
 						cout << "Saude: " << s->getSaude();
-				
+
 				c.gotoxy(18 + 17 * (i), 4);
 				cout << "Oxigenio:" << s->getOxigenio();
 			}
@@ -205,7 +217,7 @@ void Interface::desenhaSala(nave* n){
 					c.gotoxy(18 + 17 + 17 + 17 * (i - 5), 9);
 					cout << getNome(s->getId());
 					c.gotoxy(18 + 17 + 17 + 17 * (i - 5), 11);
-					if (s->getSaude() < 30){
+					if (s->getSaude() <= 30){
 						c.setBackgroundColor(c.VERMELHO);
 						cout << "Saude: " << s->getSaude();
 						c.setBackgroundColor(c.CINZENTO);
@@ -225,7 +237,7 @@ void Interface::desenhaSala(nave* n){
 					c.gotoxy(18 + 17 * (i - 8), 17);
 					cout << getNome(s->getId());
 					c.gotoxy(18 + 17 * (i - 8), 19);
-					if (s->getSaude() < 30){
+					if (s->getSaude() <= 30){
 						c.setBackgroundColor(c.VERMELHO);
 						cout << "Saude: " << s->getSaude();
 						c.setBackgroundColor(c.CINZENTO);
@@ -277,7 +289,7 @@ void Interface::desenhaTripulacao(nave* n){
 					//cout << "HP: " << (*itu)->getSaude();
 				}
 				else{
-					c.gotoxy(18 + 17 * ((*itu)->getSala() - 8), 23);
+					c.gotoxy(18 + 17 * ((*itu)->getSala() - 8), 21);
 					if ((*itu)->getSaude() > ((*itu)->getSaude() / 2))
 						c.setBackgroundColor(c.VERDE);
 					else
@@ -291,7 +303,7 @@ void Interface::desenhaTripulacao(nave* n){
 }
 
 string Interface::getNome(int id){
-	switch(id){
+	switch (id){
 	case PONTE:
 		return "Ponte";
 		break;
@@ -336,6 +348,38 @@ string Interface::getNome(int id){
 		break;
 	}
 	return "Erro";
+}
+
+string Interface::getNomeUnidade(int id){
+	switch (id){
+	case MEMBRO:
+		return "Membro";
+		break;
+	case CAPITAO:
+		return "Capitao";
+		break;
+	case ROBOT:
+		return "Robot";
+		break;
+	case PIRATA:
+		return "Pirata";
+		break;
+	case GEIGERMORFO:
+		return "Geigermorfo";
+		break;
+	case CASULO:
+		return "Casulo";
+		break;
+	case BLOBE:
+		return "Blobe";
+		break;
+	case MXYZYPYKWI:
+		return "Mxyzypykwi";
+		break;
+	default:
+		break;
+	}
+	return "ERRO";
 }
 
 int Interface::getTipo(int opcao){

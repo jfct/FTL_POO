@@ -1,3 +1,5 @@
+#ifndef Sala_H
+#define Sala_H
 #pragma once
 #include "main.h"
 #include <vector>
@@ -26,7 +28,8 @@ class sala{
 	int saude;
 	int integridade;
 	int oxigenio;
-	std::vector<char> tripulantes;
+	int propulsao;
+	//std::vector<char> tripulantes;
 	std::vector<int> salasAdjacentes;
 	
 public:
@@ -38,6 +41,7 @@ public:
 	virtual int getSaude(){ return saude; };
 	virtual int getIntegridade(){ return integridade; };
 	virtual int getOxigenio(){ return oxigenio; };
+	virtual int getPropulsao(){ return propulsao; }
 
 	virtual void setId(int s){ id = s; };
 	virtual void setNumero(int s){ numero = s; };
@@ -45,6 +49,7 @@ public:
 	virtual void setIntegridade(int s){ integridade = s; };
 	virtual void setOxigenio(int s){ oxigenio = s; };
 
+	
 	virtual void fazEfeito();
 	virtual bool verificaDano();
 };
@@ -74,6 +79,10 @@ class propulsor : public sala{
 public:
 	propulsor();
 	~propulsor();
+
+	void setpropulsao(int s){ propulsao = s; };
+
+	int getPropulsao(){ return propulsao; };
 };
 
 // Sala controlo de escudo, Gera escudo para a nave
@@ -174,3 +183,4 @@ public:
 
 	virtual void fazEfeito();
 };
+#endif

@@ -1,3 +1,5 @@
+#ifndef Main_H
+#define Main_H
 #pragma once
 
 #include <iostream>
@@ -7,7 +9,6 @@
 #include <cstdlib>
 #include <sstream>
 #include <algorithm>
-
 
 #include "consola.h"
 #include "Unidades.h"
@@ -34,3 +35,4 @@ const int INTEGRIDADE = 100;
 int exemplo();
 
 void main();
+#endif

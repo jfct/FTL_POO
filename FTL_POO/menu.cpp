@@ -17,8 +17,6 @@ void menu(){
 
 	c.gotoxy(55, 30);
 	cout << "Novo Jogo" << endl;
-	c.gotoxy(55, 31);
-	cout << "Opcoes" << endl;
 	c.gotoxy(55, 32);
 	cout << "Sair" << endl;
 
@@ -29,6 +27,8 @@ void menu(){
 	case 1:
 		jogo();
 		break;
+	case 2:
+		exit(0);
 	default:
 		break;
 	}

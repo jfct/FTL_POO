@@ -1,8 +1,21 @@
 #pragma once
 #include "main.h"
+#include <algorithm>
+
+extern int dificuldade;
 
 
-
+bool isNumber(string buffer)
+{
+	for (string::reverse_iterator i = buffer.rbegin(); i != buffer.rend(); ++i)
+	{
+		if (!isdigit(*i))
+		{
+			return false;
+		}
+	}
+	return true;
+}
 
 string convertToUpper(string data)
 {
@@ -23,17 +36,6 @@ vector<string> separaPalavras(string frase)
 	return palavras;
 }
 
-bool isNumber(string buffer)
-{
-	for (string::reverse_iterator i = buffer.rbegin(); i != buffer.rend(); ++i)
-	{
-		if (!isdigit(*i))
-		{
-			return false;
-		}
-	}
-	return true;
-}
 
 void addSalaTipo(nave* n, int opcao){
 	switch (opcao){
@@ -136,8 +138,8 @@ void inicializarTripulacao(nave* n, Consola c){
 
 	for (int i = 0; i < 3; i++){
 		c.gotoxy(15, 30);
-		c.setBackgroundColor(c.BRANCO);
-		c.setTextColor(c.PRETO);
+		c.setBackgroundColor(c.PRETO);
+		c.setTextColor(c.BRANCO);
 		cout << "Em que sala pretende inserir o Membro?";
 		colocaOrdem();
 		do{
@@ -159,6 +161,45 @@ nave* inicioJogo(){
 	Interface in;
 	Consola c;
 	nave* n = new nave();
+	string nome;
+	int opcaoEscolhida;
+
+	titulo();
+	c.gotoxy(15, 30);
+	cout << "Indique o nome da sua nave!";
+	colocaOrdem();
+	cin >> nome;
+	n->setNome(nome);
+
+	c.clrscr();
+
+	c.gotoxy(20, 15);
+	cout << "Selecione o nivel de dificuldade:" << endl;  
+	c.gotoxy(20, 16);
+	cout << "1) Facil" << endl;
+	c.gotoxy(20, 17);
+	cout << "2) Dificil" << endl;
+	c.gotoxy(20, 18);
+	cout << "3) Muito Dificil" << endl;
+	c.gotoxy(20, 19);
+	cout << "4) Nunca ninguem passou este modo";
+	colocaOrdem();
+	cin >> opcaoEscolhida;
+
+	switch (opcaoEscolhida){
+	case 1:
+		n->setDificuldade(1);
+		break;
+	case 2:
+		n->setDificuldade(2);
+		break;
+	case 3:
+		n->setDificuldade(6);
+		break;
+	case 4:
+		n->setDificuldade(20);
+		break;
+	}
 
 	inicializarNave(n,c);
 	// Diminui de volta o textsize para o normal
@@ -169,6 +210,7 @@ nave* inicioJogo(){
 	c.setBackgroundColor(c.CINZENTO);
 	c.setTextColor(c.PRETO);
 	// Passa ao desenho da sala
+
 	in.desenhaSala(n);
 	inicializarTripulacao(n, c);
 
@@ -177,7 +219,7 @@ nave* inicioJogo(){
 	return n;
 }
 
-void ordens(nave* n){
+int ordens(nave* n){
 	string ordem;
 	int nSala;
 	vector<string> p;
@@ -198,16 +240,27 @@ void ordens(nave* n){
 
 	vu = n->getVU();
 
-	for (int i = 0; i < vu.size(); i++)
-		if (p[0].compare(vu[i]->getNomeUnidade()) == 0)
-		{
-			vu[i]->setSala(atoi(p[1].c_str()));
-			return;
+	string s = p[0];
+	transform(s.begin(), s.end(), s.begin(), toupper);
+
+	if (s.compare("MOVER") == 0){
+		for (int i = 0; i < vu.size(); i++)
+			if (p[1].compare(vu[i]->getNomeUnidade()) == 0)
+			{
+				vu[i]->setSala(atoi(p[2].c_str()));
+				return 0;
+			}
+	}
+	else
+		if (s.compare("AVANCAR") == 0){
+			return 1;
 		}
 		else
 		{
 			cout << "Ordem Incorreta";
 		}
+
+	return 0;
 }
 
 void jogo(){
@@ -217,46 +270,129 @@ void jogo(){
 	Consola c;
 	nave* n;
 
+	int avancar = 0;
+
 	// Inicializa os Ticks a 0
 	g->setTick(0);
-
+	
 	// Limpa e começa o jogo
 	in.limpaEcra();
 	n = inicioJogo();
+	// Inicializa o "Objectivo"
+	g->setObjectivo(4000 + 1000 * (n->getDificuldade()));
 
-	while (1){
-		// Mostrar Tick atual
-		c.gotoxy(105, 8);
-		c.setBackgroundColor(c.BRANCO);
-		c.setTextColor(c.PRETO);
-		cout << "Tick: " << g->getTick();
+	while (!fimTurno(g, n)){
+		while (avancar == 0){
 
-		// Coloca o texto ao natural
-		c.setBackgroundColor(c.CINZENTO);
-		c.setTextColor(c.PRETO);
-		colocaOrdem();
-		ordens(n);
-		g->setTick(g->getTick() + 1);
+			// Mostrar menu lateral
+			in.desenhaInformacao(n, g);
+			// Mostrar Tick atual
+			c.gotoxy(140, 7);
+			c.setBackgroundColor(c.PRETO);
+			c.setTextColor(c.VERMELHO_CLARO);
+			cout << "Turno: " << g->getTick();
 
-		if ((g->getTick()) == 2)
-		{
-			PoCosmico(n, c);
-			c.setBackgroundColor(c.BRANCO);
-			c.clrscr();
+
+			// Coloca o texto ao natural
+			c.setBackgroundColor(c.PRETO);
+			c.setTextColor(c.BRANCO);
+
+			c.gotoxy(15, 30);
+			cout << "Digite o seu comando:";
+			// Inserir Ordens
+			colocaOrdem();
+			avancar = ordens(n);
+			if (avancar == 1){
+				g->setTick(g->getTick() + 1);
+			}
+
+			c.setTextSize(13, 13);
+			// Começa os desenhos de interface
+			in.desenhaNave();
+			// Confere ao texto as caracteristicas para igualar ao fundo
+			c.setBackgroundColor(c.CINZENTO);
+			c.setTextColor(c.PRETO);
+			// Passa ao desenho da sala
+			in.desenhaSala(n);
+			c.setBackgroundColor(c.CINZENTO);
+			in.desenhaTripulacao(n);
 		}
+		avancar = 0;
+		randomEvents(g, n , in, c);
+	}
+
+	c.gotoxy(80, 50);
+	cout << "VOCE CHEGOU AO DESTINO!!!!!!!!";
+
+}
+
+int verficaPropulsao(nave* n){
+	vector<sala*> vs;
+	std::vector<sala*>::const_iterator it;
+
+	int total = 0;
+
+	vs = n->getVS();
+	for (it = vs.begin(); it != vs.end(); ++it){
+		if ((*it)->getId() == PROPULSOR)
+			total += (*it)->getPropulsao();
+	}
+	return total;
+}
+
+void randomEvents(game* g, nave* n, Interface in, Consola c){
+
+	if (numeroAleatorio1(0, 100) > 90){
+		PoCosmico(n, c);
+		c.setBackgroundColor(c.PRETO);
+		c.clrscr();
 
 		c.setTextSize(13, 13);
 		// Começa os desenhos de interface
 		in.desenhaNave();
-		// Confere ao texto as caracteristicas para assimilar ao fundo
+		// Confere ao texto as caracteristicas para igualar ao fundo
 		c.setBackgroundColor(c.CINZENTO);
 		c.setTextColor(c.PRETO);
 		// Passa ao desenho da sala
 		in.desenhaSala(n);
 		c.setBackgroundColor(c.CINZENTO);
 		in.desenhaTripulacao(n);
+	}
+}
 
+int numeroAleatorio1(int min, int max)
+{
+	return min + rand() % (max - min + 1);
+};
 
+boolean fimTurno(game* g, nave* n){
+	vector<unidade*> vu;
+	vector<unidade*>::const_iterator itu;
+
+	vector<sala*> vs;
+	vector<unidade*>::const_iterator it;
+
+	vs = n->getVS();
+	vu = n->getVU();
+
+	int propulsaoTotal = 0, flag = 0;
+
+	for (itu = vu.begin(); itu != vu.end(); ++itu){
+		if ((*itu)->getSala() == 7)
+			if ((*itu)->getOperador() == 1)
+				flag = 1;
+		if (vs.at((*itu)->getSala())->getSaude() < 100)
+			if ((*itu)->getReparador() > 0)
+				vs.at((*itu)->getSala())->setSaude(vs.at((*itu)->getSala())->getSaude() + (*itu)->getReparador());
 	}
 
+	if (flag == 1)
+	{
+		propulsaoTotal = verficaPropulsao(n);
+		g->setObjectivo(g->getObjectivo() - propulsaoTotal);
+	}
+
+	if (g->getObjectivo() <= 0)
+		return true;
+	return false;
 }
