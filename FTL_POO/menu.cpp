@@ -13,22 +13,30 @@ void colocaOrdem(){
 
 void menu(){
 	Consola c;
-	int opcao;
+	string opcao;
 
-	c.gotoxy(55, 30);
-	cout << "Novo Jogo" << endl;
-	c.gotoxy(55, 32);
-	cout << "Sair" << endl;
+	do{
+		titulo();
+		c.gotoxy(55, 30);
+		cout << "1) Novo Jogo" << endl;
+		c.gotoxy(55, 32);
+		cout << "2) Sair" << endl;
 
-	colocaOrdem();
-	cin >> opcao;
+		colocaOrdem();
+		cin.clear();
+		fflush(stdin);
+		getline(cin, opcao);
 
-	switch (opcao){
+		c.clrscr();
+	} while (atoi(opcao.c_str()) != 1 && atoi(opcao.c_str()) != 2);
+
+	switch (atoi(opcao.c_str())){
 	case 1:
 		jogo();
 		break;
 	case 2:
-		exit(0);
+		
+		break;
 	default:
 		break;
 	}

@@ -76,7 +76,8 @@ void inicializarNave(nave* n, Consola c){
 	//Consola c;
 	Interface in;
 	vector<int>vectopcao;
-	int opcao, flag = 0;
+	string opcao;
+	int flag = 0;
 
 
 	n->setEscudo(100);
@@ -98,10 +99,15 @@ void inicializarNave(nave* n, Consola c){
 			c.setBackgroundColor(c.BRANCO);
 			cout << "Indique Sala " << ":";
 			colocaOrdem();
-			cin >> opcao;
-		} while (opcao < 1 && opcao > 9);
-		vectopcao.push_back(opcao);
-		addSalaTipo(n, opcao);
+			cout << "                                       ";
+			colocaOrdem();
+			cin.clear();
+			fflush(stdin);
+			getline(cin, opcao);
+
+		} while (atoi(opcao.c_str()) < 1 || atoi(opcao.c_str()) > 9);
+		vectopcao.push_back(atoi(opcao.c_str()));
+		addSalaTipo(n, atoi(opcao.c_str()));
 		flag = 1;
 	}
 	
@@ -123,10 +129,14 @@ void inicializarNave(nave* n, Consola c){
 			c.setBackgroundColor(c.BRANCO);
 			cout << "Indique Sala " << ":";
 			colocaOrdem();
-			cin >> opcao;
-		} while (opcao < 1 && opcao > 9);
-		vectopcao.push_back(opcao);
-		addSalaTipo(n, opcao);
+			cout << "                                       ";
+			colocaOrdem();
+			cin.clear();
+			fflush(stdin);
+			getline(cin, opcao);
+		} while (atoi(opcao.c_str()) < 1 || atoi(opcao.c_str()) > 9);
+		vectopcao.push_back(atoi(opcao.c_str()));
+		addSalaTipo(n, atoi(opcao.c_str()));
 		flag = 1;
 	}
 	n->atribuiNumero();
@@ -134,27 +144,88 @@ void inicializarNave(nave* n, Consola c){
 
 void inicializarTripulacao(nave* n, Consola c){
 	int nSala;
-	Interface in;
+	int totalTripulantes=3;
+	int i=0;
+	int unique=0;
 
-	for (int i = 0; i < 3; i++){
+	Interface in;
+	vector<sala*> vs;
+	vector<sala*>::const_iterator it;
+
+	vs = n->getVS();
+
+
+	for (it = vs.begin(); it != vs.end(); ++it){
+		if ((*it)->getId() == BELICHE)
+			totalTripulantes++;
+		if ((*it)->getId() == ALOJAMENTOCAPITAO && unique == 0){
+			c.gotoxy(15, 30);
+			c.setBackgroundColor(c.PRETO);
+			c.setTextColor(c.BRANCO);
+			cout << "Em que sala pretende inserir o Capitao?";
+			colocaOrdem();
+			// Verifica Salas
+			do{
+				cin >> nSala;
+			} while (nSala > 11 && nSala < 0);
+			
+			n->addUnidade(CAPITAO, nSala);
+			vs[nSala]->setnTripulantes(vs[nSala]->getnTripulantes() + 1);
+			unique = 1;
+			i++;
+
+			in.desenhaNave();
+			c.setBackgroundColor(c.CINZENTO);
+			c.setTextColor(c.PRETO);
+			in.desenhaSala(n);
+			in.desenhaTripulacao(n);
+		}
+
+		if ((*it)->getId() == OFICINA){
+			c.gotoxy(15, 30);
+			c.setBackgroundColor(c.PRETO);
+			c.setTextColor(c.BRANCO);
+			cout << "Em que sala pretende inserir o Robot?";
+			colocaOrdem();
+			// Verifica Salas
+			do{
+				cin >> nSala;
+			} while (nSala > 11 && nSala < 0);
+			
+			n->addUnidade(ROBOT, nSala);
+			vs[nSala]->setnTripulantes(vs[nSala]->getnTripulantes() + 1);
+			i++;
+
+			in.desenhaNave();
+			c.setBackgroundColor(c.CINZENTO);
+			c.setTextColor(c.PRETO);
+			in.desenhaSala(n);
+			in.desenhaTripulacao(n);
+		}
+	}
+
+	for (; i < totalTripulantes; i++){
+
 		c.gotoxy(15, 30);
 		c.setBackgroundColor(c.PRETO);
 		c.setTextColor(c.BRANCO);
 		cout << "Em que sala pretende inserir o Membro?";
 		colocaOrdem();
+		// Verifica Salas
 		do{
 			cin >> nSala;
 		} while (nSala > 11 && nSala < 0);
 
 		n->addUnidade(MEMBRO, nSala);
-		n->addNTripulantes(n->getNumeroTripulantes()+1);
-		
+		vs[nSala]->setnTripulantes(vs[nSala]->getnTripulantes() + 1);
+
 		in.desenhaNave();
 		c.setBackgroundColor(c.CINZENTO);
 		c.setTextColor(c.PRETO);
 		in.desenhaSala(n);
 		in.desenhaTripulacao(n);
 	}
+	n->addNTripulantes(totalTripulantes);
 }
 
 nave* inicioJogo(){
@@ -168,7 +239,9 @@ nave* inicioJogo(){
 	c.gotoxy(15, 30);
 	cout << "Indique o nome da sua nave!";
 	colocaOrdem();
-	cin >> nome;
+	cin.clear();
+	fflush(stdin);
+	getline(cin, nome);
 	n->setNome(nome);
 
 	c.clrscr();
@@ -183,8 +256,11 @@ nave* inicioJogo(){
 	cout << "3) Muito Dificil" << endl;
 	c.gotoxy(20, 19);
 	cout << "4) Nunca ninguem passou este modo";
-	colocaOrdem();
-	cin >> opcaoEscolhida;
+	
+	do{
+		colocaOrdem();
+		cin >> opcaoEscolhida;
+	} while (opcaoEscolhida < 1 && opcaoEscolhida > 4);
 
 	switch (opcaoEscolhida){
 	case 1:
@@ -224,12 +300,13 @@ int ordens(nave* n){
 	int nSala;
 	vector<string> p;
 	vector<unidade*> vu;
+	vector<sala*> vs;
 
 	cin.clear();
 	fflush(stdin);
 	getline(cin, ordem);
 
-	cout << ordem;
+	//cout << ordem;
 	p = separaPalavras(ordem);
 
 	/*char *a = new char[ordem.size() + 1];
@@ -239,6 +316,7 @@ int ordens(nave* n){
 	/*nSala = (int)a[1];*/
 
 	vu = n->getVU();
+	vs = n->getVS();
 
 	string s = p[0];
 	transform(s.begin(), s.end(), s.begin(), toupper);
@@ -248,6 +326,7 @@ int ordens(nave* n){
 			if (p[1].compare(vu[i]->getNomeUnidade()) == 0)
 			{
 				vu[i]->setSala(atoi(p[2].c_str()));
+				vs[i]->setnTripulantes(vs[i]->getnTripulantes() + 1);
 				return 0;
 			}
 	}
@@ -257,7 +336,8 @@ int ordens(nave* n){
 		}
 		else
 		{
-			cout << "Ordem Incorreta";
+			cout << "\t" << "Ordem Incorreta" << endl;
+			system("PAUSE");
 		}
 
 	return 0;

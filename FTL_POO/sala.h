@@ -29,13 +29,15 @@ class sala{
 	int integridade;
 	int oxigenio;
 	int propulsao;
-	//std::vector<char> tripulantes;
+	int nTripulantes;
+
 	std::vector<int> salasAdjacentes;
 	
 public:
 	sala();
 	~sala();
 
+	virtual int getnTripulantes(){ return nTripulantes; };
 	virtual int getId(){ return id; };
 	virtual int getNumero(){ return numero; }
 	virtual int getSaude(){ return saude; };
@@ -43,6 +45,7 @@ public:
 	virtual int getOxigenio(){ return oxigenio; };
 	virtual int getPropulsao(){ return propulsao; }
 
+	virtual void setnTripulantes(int s){ nTripulantes = s; };
 	virtual void setId(int s){ id = s; };
 	virtual void setNumero(int s){ numero = s; };
 	virtual void setSaude(int s){ saude = s; };
