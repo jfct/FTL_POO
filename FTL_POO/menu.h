@@ -6,5 +6,8 @@
 #include "main.h"
 
 void colocaOrdem();
+
 void menu();
+
+
 #endif

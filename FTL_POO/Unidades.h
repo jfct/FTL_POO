@@ -17,92 +17,94 @@ const int CASULO = 805;
 const int BLOBE = 806;
 const int MXYZYPYKWI = 807;
 
+class caracteristicas;
 
 class unidade{
 
+	unidade* uniAux;
+
+	// Nome da Unidade
 	std::string nome;
 
+	// Informação básica e comum a todas as unidades
+	int saudeMax;
 	int saude;
+	// Sala que se encontrar
 	int sala;
+	// Tipo de unidade
 	int tipo;
+	// Id
+	int numero;
 
-	int respira=0;
-	int flamejante = 0;
-	int toxico = 0;
-	int indeciso = 0;
-	int misterioso = 0;
-	int regenerador = 0;
-	int exoesqueleto = 0;
-	int robotico = 0;
-	int reparador = 0;
-	int combatente = 0;
-	int xenomorfo = 0;
-	int casulo = 0;
-	int mutatis = 0;
-	int hipnotizador = 0;
-	int operador = 0;
-	int tripulacao = 0;
-	int inimigo = 0;
-	int inimigoSala = 0;
-	int move = 0;
-	int armado = 0;
+	// Variavel para saber se esta visivel ou nao
+	int visivel = 1;
+
+	// Valores para o seu exoesqueleto e arma
+	int valorExoesqueleto;
+	int armado;
+
+	// Valor de indecisao de uma unidade;
+	int valorIndeciso;
+
+	// Booleanos para verificar permissões
+	bool mover = true;
+	bool combater= true;
+	bool inGame = true;
+	// Guarda sala para onde vai se movimentar
+	bool jaMoveu = false;
+
+	// Inteiro que verifica se a unidade ja fez as suas caracteristicas este turno
+	int finish;
+	// Vector que contem caracteristiscas de cada unidade
+	std::vector<caracteristicas*> vectorCaracteristicas;
 
 public:
 	unidade();
 	~unidade();
 
-	static int id;
+	static int id, idInimigo, idXenomorfo;
 
-	int getRespira() { return this->respira; }
-	int getFlamejante() { return this->flamejante; }
-	int getToxico() { return this->toxico; }
-	int getIndeciso() { return this->indeciso; }
-	int getMisterioso() { return this->misterioso; }
-	int getRegenerador() { return this->regenerador; }
-	int getExoesqueleto() { return this->exoesqueleto; }
-	int getRobotico() { return this->robotico; }
-	int getReparador() { return this->reparador; }
-	int getCombatente() { return this->combatente; }
-	int getXenomorfo() { return this->xenomorfo; }
-	int getCasulo() { return this->casulo; }
-	int getMutatis() { return this->mutatis; }
-	int getHipnotizador() { return this->hipnotizador; }
-	int getOperador() { return this->operador; }
-	int getTripulacao() { return this->tripulacao; }
-	int getInimigo() { return this->inimigo; }
-	int getInimigoSala() { return this->inimigoSala; }
-	int getMove() { return this->move; }
-	int getArmado() { return this->armado; }
-	int getId(){ return id; };
+	void setVisivel(int visivel){ this->visivel = visivel; };
+	int getVisivel(){ return visivel; };
+
+	void setFinish(int finish){ this->finish = finish; };
+	int getFinish(){ return finish; };
+
+	void setUniAux(unidade* uni){ this->uniAux = uni; };
+	unidade* getUniAux(){ return uniAux; };
+
+	void setCaracteristicas(std::vector<caracteristicas*> VC){ vectorCaracteristicas = VC; };
+	std::vector<caracteristicas*> getCaracteristicas(){ return vectorCaracteristicas; };
+
+	bool getMover(){ return mover; };
+	bool getCombater(){ return combater; };
+	bool getInGame(){ return inGame; };
+	bool getJaMoveu(){ return jaMoveu; };
+
+	void setMover(bool mover){ this->mover = mover; };
+	void setCombater(bool combater){ this->combater = combater; };
+	void setInGame(bool inGame){ this->inGame = inGame; };
+
+	int getIndeciso(){ return valorIndeciso; };
+	int getArmado(){ return armado; };
+	int getExoesqueleto() { return this->valorExoesqueleto; }
+	int getId(){return id;};
+	int getSaudeMax(){ return saudeMax; };
 	int getSaude(){ return saude; };
 	int getSala(){ return sala; };
 	int getTipo(){ return tipo; };
+	int getNumero(){ return numero; };
 
-	
-	void setMove(int move) { this->move = move; }
-	void setArmado(int armado) { this->armado = armado; }
+	void setIndeciso(int s){ if(this->valorIndeciso < 100) this->valorIndeciso += s; };
+	void setArmado(int s){ armado = s; };
+	void setJaMoveu(bool s){ jaMoveu = s; };
 	void setTipo(int s){ tipo = s; }
 	void setId(int s){ id = s; };
+	void setSaudeMax(int s){ saudeMax = s; };
 	void setSaude(int s){ saude = s; };
 	void setSala(int s){ sala = s; };
-	void setRespira(int respira) { this->respira = respira; }
-	void setFlamejante(int flamejante) { this->flamejante = flamejante; }
-	void setToxico(int toxico) { this->toxico = toxico; }
-	void setIndeciso(int indeciso) { this->indeciso = indeciso; }
-	void setMisterioso(int misterioso) { this->misterioso = misterioso; }
-	void setRegenerador(int regenerador) { this->regenerador = regenerador; }
-	void setExoesqueleto(int exoesqueleto) { this->exoesqueleto = exoesqueleto; }
-	void setRobotico(int robotico) { this->robotico = robotico; }
-	void setReparador(int reparador) { this->reparador = reparador; }
-	void setCombatente(int combatente) { this->combatente = combatente; }
-	void setXenomorfo(int xenomorfo) { this->xenomorfo = xenomorfo; }
-	void setCasulo(int casulo) { this->casulo = casulo; }
-	void setOperador(int operador) { this->operador = operador; }
-	void setMutatis(int mutatis) { this->mutatis = mutatis; }
-	void setHipnotizador(int hipnotizador) { this->hipnotizador = hipnotizador; }
-	void setTripulacao(int tripulacao) { this->tripulacao = tripulacao; }
-	void setInimigo(int inimigo) { this->inimigo = inimigo; }
-	void setInimigoSala(int inimigoSala) { this->inimigoSala = inimigoSala; }
+	void setExoesqueleto(int exoesqueleto) { this->valorExoesqueleto = exoesqueleto; }
+	void setNumero(int s){ numero = s; };
 
 	std::string getNomeUnidade(){ return nome; };
 	void setNomeUnidade(std::string n){ nome = n; };
@@ -132,25 +134,29 @@ public:
 
 class geigermorfo : public unidade{
 public:
-	geigermorfo();
+	geigermorfo(int i);
 	~geigermorfo();
 };
 
 class casulo : public unidade{
+	//unidade* uniAux;
+	int contagem;
 public:
-	casulo();
+
+
+	casulo(int i, unidade* uni);
 	~casulo();
 };
 
 class blob : public unidade{
 public:
-	blob();
+	blob(int i);
 	~blob();
 };
 
 class mxyzypykwi : public unidade{
 public:
-	mxyzypykwi();
+	mxyzypykwi(int i);
 	~mxyzypykwi();
 };
 
@@ -159,7 +165,7 @@ public:
 class pirata : public unidade{
 
 public:
-	pirata();
+	pirata(int i);
 	~pirata();
 };
 

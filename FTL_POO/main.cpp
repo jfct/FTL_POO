@@ -3,8 +3,10 @@
 
 void main(){
 	Consola c;
+	srand(time(NULL));
+	
+	c.setScreenSize(50, 200);
 
-	c.setScreenSize(190, 100);
 	c.setBackgroundColor(c.PRETO);
 
 	menu();

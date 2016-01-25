@@ -78,8 +78,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Caracteristicas.cpp" />
     <ClCompile Include="consola.cpp" />
-    <ClCompile Include="desenha.cpp" />
     <ClCompile Include="Eventos.cpp" />
     <ClCompile Include="exemplo.cpp" />
     <ClCompile Include="Interface.cpp" />
@@ -92,6 +92,7 @@
     <ClCompile Include="Unidades.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Caracteristicas.h" />
     <ClInclude Include="consola.h" />
     <ClInclude Include="Eventos.h" />
     <ClInclude Include="Interface.h" />

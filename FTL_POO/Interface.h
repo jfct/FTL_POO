@@ -16,10 +16,14 @@ public:
 	void limpaEcra();
 	void displaysalas();
 
-	void desenhaNave();
+	int cores(nave* n, int pos);
+
+	void desenhaNave(nave* n);
 	void desenhaInformacao(nave* n, game* g);
 	void desenhaMenuOpcao(int i);
 	void desenhaTripulacao(nave* n);
+	void desenhaInimigos(nave* n);
+	void desenhaXenomorfos(nave* n);
 	void desenhaSala(nave* n);
 	void desenhaSalaNumero(std::vector<int> vector);
 

@@ -69,7 +69,7 @@ sala* nave::getSala(int numero){
 }
 
 unidade* nave::getUnidade(int numero){
-	for (itu = vectorUnidades.begin(); itu != vectorUnidades.end(); ++it){
+	for (itu = vectorUnidades.begin(); itu != vectorUnidades.end(); ++itu){
 		if ((*itu)->getId() == numero)
 			return (*itu);
 	}
@@ -78,6 +78,61 @@ unidade* nave::getUnidade(int numero){
 	colocaOrdem();
 	cout << "Não existe numero";
 	return NULL;
+}
+
+void nave::removeTempUnidade(unidade* uni){
+	int contador = 0;
+
+	// Remover da sala
+	sala* salaActual = getSala(uni->getSala());
+
+	for (itu = salaActual->getVU().begin(); itu != salaActual->getVU().end(); ++itu){
+		if ((*itu)->getId() == uni->getId())
+			salaActual->getVU().erase(salaActual->getVU().begin() + contador);
+		contador++;
+	}
+}
+
+void nave::removeTempInimigo(unidade* uni){
+	int contador = 0;
+
+	// Remove o Inimigo da nave
+	for (itu = vectorInimigos.begin(); itu != vectorInimigos.end(); ++itu){
+		if ((*itu)->getId() == uni->getId())
+			vectorInimigos.erase(vectorInimigos.begin() + contador);
+		contador++;
+	}
+
+	contador = 0;
+	// Vai remover da sala também
+	sala* salaActual = getSala(uni->getSala());
+
+	for (itu = salaActual->getVI().begin(); itu != salaActual->getVI().end(); ++itu){
+		if ((*itu)->getId() == uni->getId())
+			salaActual->getVI().erase(salaActual->getVI().begin() + contador);
+		contador++;
+	}
+}
+
+void nave::removeTempXenomorfo(unidade* uni){
+	int contador = 0;
+
+	// Remove o Xenomorfo da nave
+	for (itu = vectorXenomorfos.begin(); itu != vectorXenomorfos.end(); ++itu){
+		if ((*itu)->getId() == uni->getId())
+			vectorXenomorfos.erase(vectorXenomorfos.begin() + contador);
+		contador++;
+	}
+
+	contador = 0;
+	// Vai remover da sala também
+	sala* salaActual = getSala(uni->getSala());
+
+	for (itu = salaActual->getVX().begin(); itu != salaActual->getVX().end(); ++itu){
+		if ((*itu)->getId() == uni->getId())
+			salaActual->getVX().erase(salaActual->getVX().begin() + contador);
+		contador++;
+	}
 }
 
 void nave::atribuiNumero(){
@@ -93,25 +148,29 @@ void nave::addUnidade(int tipo, int sala){
 	
 	switch (tipo){
 	case MEMBRO:
-		vectorUnidades.push_back(new membro(sala));
+		getSala(sala)->addUnidade(new membro(sala));
+		//vectorUnidades.push_back(new membro(sala));
 		break;
 	case CAPITAO:
-		vectorUnidades.push_back(new capitao(sala));
+		getSala(sala)->addUnidade(new capitao(sala));
 		break;
 	case ROBOT:
-		vectorUnidades.push_back(new robot(sala));
+		getSala(sala)->addUnidade(new robot(sala));
 		break;
 	case GEIGERMORFO:
-		vectorUnidades.push_back(new geigermorfo());
+		getSala(sala)->addXenomorfo(new geigermorfo(sala));
 		break;
 	case CASULO:
-		vectorUnidades.push_back(new casulo());
+		getSala(sala)->addXenomorfo(new casulo(sala, false));
 		break;
 	case BLOBE:
-		vectorUnidades.push_back(new blob());
+		getSala(sala)->addXenomorfo(new blob(sala));
 		break;
 	case MXYZYPYKWI:
-		vectorUnidades.push_back(new mxyzypykwi());
+		getSala(sala)->addXenomorfo(new mxyzypykwi(sala));
+		break;
+	case PIRATA:
+		getSala(sala)->addInimigo(new pirata(sala));
 		break;
 	default:
 		cout << "Não há essa classe";

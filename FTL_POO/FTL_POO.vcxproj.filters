@@ -42,9 +42,6 @@
     <ClCompile Include="exemplo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="desenha.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="titulo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -67,6 +64,9 @@
       <Filter>Source Files\Unidades</Filter>
     </ClCompile>
     <ClCompile Include="Eventos.cpp">
+      <Filter>Source Files\jogo</Filter>
+    </ClCompile>
+    <ClCompile Include="Caracteristicas.cpp">
       <Filter>Source Files\jogo</Filter>
     </ClCompile>
   </ItemGroup>
@@ -99,6 +99,9 @@
       <Filter>Header Files\Unidades</Filter>
     </ClInclude>
     <ClInclude Include="Eventos.h">
+      <Filter>Header Files\jogo</Filter>
+    </ClInclude>
+    <ClInclude Include="Caracteristicas.h">
       <Filter>Header Files\jogo</Filter>
     </ClInclude>
   </ItemGroup>

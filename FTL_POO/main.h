@@ -9,20 +9,18 @@
 #include <cstdlib>
 #include <sstream>
 #include <algorithm>
+#include <ctime>
 
 #include "consola.h"
+#include "nave.h"
 #include "Unidades.h"
 #include "sala.h"
-#include "nave.h"
 #include "Interface.h"
 #include "menu.h"
 #include "titulo.h"
 #include "jogo.h"
 #include "Eventos.h"
-
-
-// TO-DO  parse int, parse string etc..
-// TO-DO funcao para dar eventos aleatoriamente
+#include "Caracteristicas.h"
 
 using namespace std;
 
@@ -32,7 +30,16 @@ const int DANOPOCOSMICO = 10;
 const int SAUDE = 100;
 const int INTEGRIDADE = 100;
 
-int exemplo();
+const int INDECISO = 500;
+const int OPERADOR = 501;
 
+// Estados de sala
+const int FOGO = 500;
+const int BRECHA = 501;
+const int CURTOCIRCUITO = 502;
+
+int exemplo();
+void colocaMensagem(string mensagem, int linha);
 void main();
+
 #endif

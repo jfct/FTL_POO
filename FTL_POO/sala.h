@@ -1,9 +1,11 @@
 #ifndef Sala_H
 #define Sala_H
 #pragma once
+
 #include "main.h"
 #include <vector>
 
+class game;
 class nave;
 
 const int PONTE = 900;
@@ -31,30 +33,131 @@ class sala{
 	int propulsao;
 	int nTripulantes;
 
+	// Diferentes estados que uma sala poderá ter
+	// Fogo = FOGO
+	// Brecha = BRECHA
+	// Curto Circuito = CURTOCIRCUITO
+	int estado=0;
+	int estado2=0;
+
+	std::vector<unidade*> vectorUnidades;
+	std::vector<unidade*> vectorInimigos;
+	std::vector<unidade*> vectorXenomorfos;
+
 	std::vector<int> salasAdjacentes;
 	
 public:
 	sala();
 	~sala();
 
-	virtual int getnTripulantes(){ return nTripulantes; };
-	virtual int getId(){ return id; };
-	virtual int getNumero(){ return numero; }
-	virtual int getSaude(){ return saude; };
-	virtual int getIntegridade(){ return integridade; };
-	virtual int getOxigenio(){ return oxigenio; };
-	virtual int getPropulsao(){ return propulsao; }
+	bool verificaDano();
 
-	virtual void setnTripulantes(int s){ nTripulantes = s; };
-	virtual void setId(int s){ id = s; };
-	virtual void setNumero(int s){ numero = s; };
-	virtual void setSaude(int s){ saude = s; };
-	virtual void setIntegridade(int s){ integridade = s; };
-	virtual void setOxigenio(int s){ oxigenio = s; };
+	int getnTripulantes(){ return nTripulantes; };
+	int getId(){ return id; };
+	int getNumero(){ return numero; }
+	int getSaude(){ return saude; };
+	int getIntegridade(){ return integridade; };
+	int getOxigenio(){ return oxigenio; };
 
+	// Diferentes estados que uma sala poderá ter
+	// Fogo = FOGO
+	// Brecha = BRECHA
+	// Curto Circuito = CURTOCIRCUITO
+	int getEstado(){ return estado; };
+	int getEstado2(){ return estado2; };
+	// Diferentes estados que uma sala poderá ter
+	// Fogo = FOGO
+	// Brecha = BRECHA
+	// Curto Circuito = CURTOCIRCUITO
+	void setEstado(int s){ estado = s; };
+	void setEstado2(int s){ estado2 = s; };
+
+	void setnTripulantes(int s){ nTripulantes = s; };
+	void setId(int s){ id = s; };
+	void setNumero(int s){ numero = s; };
+	void setSaude(int s){ saude = s; };
+	void setIntegridade(int s){ integridade = s; };
+	void setOxigenio(int s){ oxigenio = s; };
+
+	// Sistema de propulsão
+	virtual int getPropulsao(){ return 0; };
+	virtual void setPropulsao(){};
 	
-	virtual void fazEfeito();
-	virtual bool verificaDano();
+
+	// Getters e Setters para identificar salas adjacentes
+	void addAdjacente(int x){ salasAdjacentes.push_back(x); };
+	void setAdjacente(std::vector<int> salasAdjacentes){ this->salasAdjacentes = salasAdjacentes; };
+	std::vector<int> getAdjacente(){ return salasAdjacentes; };
+
+	// Função para facilitar a adicao e remocao de unidades
+
+	// Enviar unidade a ser adicionada
+	void addUnidade(unidade* uni){ vectorUnidades.push_back(uni);};
+	// Enviar unidade a ser adicionada
+	void addInimigo(unidade* uni){ vectorInimigos.push_back(uni);};
+	// Enviar unidade a ser adicionada
+	void addXenomorfo(unidade* uni){ vectorXenomorfos.push_back(uni);};
+	// Enviar Unidade a ser retirada 
+	// Id de unidade
+	void removeUnidade(unidade* uni, int id){
+		std::vector<unidade*>::const_iterator itu;
+		int contador = 0;
+
+		for (itu = vectorUnidades.begin(); itu != vectorUnidades.end(); ++itu)
+		{
+			if ((*itu)->getNumero() == id)
+			{
+				vectorUnidades.erase(vectorUnidades.begin() + contador);
+				//nTripulantes--;
+				return;
+			}
+			contador++;
+		}
+	}
+	// Enviar Unidade a ser retirada 
+	// Id de unidade
+	void removeInimigo(unidade* uni, int id){
+		std::vector<unidade*>::const_iterator itu;
+		int contador = 0;
+
+		for (itu = vectorInimigos.begin(); itu != vectorInimigos.end(); ++itu)
+		{
+			if ((*itu)->getNumero() == id)
+			{
+				vectorInimigos.erase(vectorInimigos.begin() + contador);
+				return;
+			}
+			contador++;
+		}
+	}
+	// Enviar Unidade a ser retirada 
+	// Id de unidade
+	void removeXenomorfo(unidade* uni, int id){
+		std::vector<unidade*>::const_iterator itu;
+		int contador = 0;
+
+		for (itu = vectorXenomorfos.begin(); itu != vectorXenomorfos.end(); ++itu)
+		{
+			if ((*itu)->getNumero() == id)
+			{
+				vectorXenomorfos.erase(vectorXenomorfos.begin() + contador);
+				return;
+			}
+			contador++;
+		}
+	}
+
+	void setVectorUnidades(std::vector<unidade*> vectorUnidades){ this->vectorUnidades = vectorUnidades; };
+	void setVectorInimigos(std::vector<unidade*> vectorInimigos){ this->vectorInimigos = vectorInimigos; };
+	void setVectorXenomorfos(std::vector<unidade*> vectorXenomorfos){ this->vectorXenomorfos = vectorXenomorfos; };
+
+	std::vector<unidade*> getVU(){ return vectorUnidades; };
+	std::vector<unidade*> getVI(){ return vectorInimigos; };
+	std::vector<unidade*> getVX(){ return vectorXenomorfos; };
+
+	//virtual int getTipo(){ return 0; };
+
+	virtual void fazEfeito(nave* n, sala* s);
 };
 
 // Sala ponte, necessário para movimentar a nave
@@ -62,6 +165,8 @@ class ponte : public sala{
 public:
 	ponte();
 	~ponte();
+
+	virtual void fazEfeito();
 };
 
 // Sala suporte de vida, cria oxigénio para a nave
@@ -70,7 +175,7 @@ public:
 	supVida();
 	~supVida();
 
-	virtual void fazEfeito();
+	virtual void fazEfeito(nave* n, sala* s);
 };
 
 // Sala propulsor, dita a velocidade acumulando todos
@@ -78,14 +183,17 @@ public:
 // Não pode ser reparada, sempre que leva dano a propulsão diminui
 class propulsor : public sala{
 	int propulsao;
-
+	int tipo = PROPULSOR;
 public:
 	propulsor();
 	~propulsor();
 
-	void setpropulsao(int s){ propulsao = s; };
-
+	void setPropulsao(int s){ propulsao = s; };
 	int getPropulsao(){ return propulsao; };
+
+	int getTipo(){ return tipo; };
+
+	virtual void fazEfeito();
 };
 
 // Sala controlo de escudo, Gera escudo para a nave
@@ -98,8 +206,9 @@ public:
 	void forneceEscudo();
 
 	int getEscudo(nave n);
-	
 	void setEscudo(nave n, int esc);
+
+	virtual void fazEfeito(nave* n, sala* s);
 };
 
 // Sala de maquinas, propulsores ñ funcionam se estiver
@@ -108,6 +217,8 @@ class maquinas : public sala{
 public:
 	maquinas();
 	~maquinas();
+
+	virtual void fazEfeito(nave* n, sala* s, game* g, int propulsaoTotal);
 };
 
 // Sala que aumenta a capacidade da tripulação em 1
@@ -116,7 +227,7 @@ public:
 	beliche();
 	~beliche();
 
-	virtual void fazEfeito(nave n);
+	virtual void fazEfeito();
 };
 
 // Sala que modifica os eventos quando este é operado
@@ -124,6 +235,8 @@ class raioLaser : public sala{
 public:
 	raioLaser();
 	~raioLaser();
+
+	virtual void fazEfeito();
 };
 
 // Sala que repara salas adjacentes em 5 pontos
@@ -134,7 +247,7 @@ public:
 	autoReparador();
 	~autoReparador();
 
-	virtual void fazEfeito(nave n);
+	virtual void fazEfeito(nave* n, sala* s);
 };
 
 // Sala que danifica inimigos em salas adjacentes e 
@@ -144,7 +257,7 @@ public:
 	segInterna();
 	~segInterna();
 
-	virtual void fazEfeito();
+	virtual void fazEfeito(nave* n, sala* s);
 };
 
 // Sala que cura a tripulação por 1 ponto
@@ -155,7 +268,7 @@ public:
 	enfermaria();
 	~enfermaria();
 
-	virtual void fazEfeito();
+	virtual void fazEfeito(nave* n, sala* s);
 };
 
 // Sala que dá a caracteristica Armado(1) a quem acaba
@@ -165,7 +278,7 @@ public:
 	armas();
 	~armas();
 
-	virtual void fazEfeito();
+	virtual void fazEfeito(nave* n, sala* s);
 };
 
 // Sala que modifica um membro da tripulação por um capitão
